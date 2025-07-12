@@ -1,0 +1,36 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    {% block title %}
+        BitTweet
+    {% endblock %}
+    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    {% tailwind_css %}
+</head>
+<body class="checkered-bg font-silkscreen min-h-screen p-5">
+   <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">BitTweet</div>
+            <div class="navbar-nav">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search tweets...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <a href="#" class="nav-btn">Sign In</a>
+                <a href="#" class="nav-btn signup">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+    {% block header %}{% endblock %}
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
