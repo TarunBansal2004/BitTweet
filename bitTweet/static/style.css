@@ -178,13 +178,9 @@ body {
 
 /* Main layout */
 .main-container {
-    display: flex;
-    gap: 20px;
     max-width: 1200px;
     margin: 0 auto 20px auto;
-    align-items: flex-start;
 }
-
 .profile-section {
     flex: 0 0 300px;
     background: white;
@@ -195,12 +191,14 @@ body {
 }
 
 .compose-section {
-    flex: 1;
     background: white;
     border: 4px solid #333;
     box-shadow: 8px 8px 0 #666;
     padding: 20px;
     min-height: 400px;
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    width: 100%;
 }
 
 .section-header {
@@ -637,19 +635,12 @@ body {
         font-size: 0.9rem;
     }
     
-    .main-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .profile-section {
-        flex: none;
-        width: 100%;
+   .main-container {
+        margin: 0 auto 15px auto;
     }
     
     .compose-section {
-        flex: none;
-        width: 100%;
+        margin: 0 auto 15px auto;
     }
     
     .form-row {

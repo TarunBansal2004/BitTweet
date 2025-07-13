@@ -29,7 +29,7 @@ BitTweet - Social Platform
 
 {% block content %}
 <div class="main-container">
-    <div class="profile-section">
+    {% comment %} <div class="profile-section">
         <div class="section-header">PROFILE</div>
         <div class="profile-avatar" title="Click to change avatar">👤</div>
         <div class="profile-info">
@@ -60,7 +60,7 @@ BitTweet - Social Platform
             </div>
             <button class="edit-profile-btn">EDIT PROFILE</button>
         </div>
-    </div>
+    </div> {% endcomment %}
     <div class="compose-section">
         <div class="section-header">
             {% if edit_tweet %}
