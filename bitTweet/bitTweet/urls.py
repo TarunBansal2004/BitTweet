@@ -19,14 +19,15 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
+from django.contrib.auth.urls import views as auth_views
+from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('tweet/' , include('tweet.urls')),
+    path('accounts/' , include('django.contrib.auth.urls')),
     path('__reload__/', include('django_browser_reload.urls')),
-
-    
-
+    path('logout/', LogoutView.as_view(next_page='/accounts/login/'), name='logout'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

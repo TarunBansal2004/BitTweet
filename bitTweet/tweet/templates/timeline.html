@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}
-BitTweet - Professional Social Platform
+BitTweet - Social Platform
 {% endblock %}
 
 {% block navbar %}
@@ -8,12 +8,14 @@ BitTweet - Professional Social Platform
     <div class="navbar-container">
         <div class="navbar-brand">BitTweet</div>
         <div class="navbar-nav">
-            <div class="search-container">
+            {% comment %} <div class="search-container">
                 <input type="text" class="search-input" placeholder="Search tweets...">
                 <button class="search-btn">🔍</button>
-            </div>
-            <a href="#" class="nav-btn signup">Log Out</a>
-        </div>
+            </div> {% endcomment %}
+           <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+             <button type="submit" class="nav-btn signup">Log Out</button>
+           </form>
     </div>
 </nav>
 {% endblock %}
@@ -124,8 +126,10 @@ BitTweet - Professional Social Platform
                 {% endif %}
             </div>
             <div class="tweet-actions">
+                {% if tweet.user == user %}
                 <a href="{% url 'timeline' %}?edit={{ tweet.id }}"><button class="action-btn edit-btn">EDIT</button></a>
-                <a href="{% url 'tweet_delete' tweet.id %}"><button class="action-btn delete-btn">DELETE</b
+                <a href="{% url 'tweet_delete' tweet.id %}"><button class="action-btn delete-btn">DELETE</button></a>
+                {% endif %}
             </div>
         </div>
     {% empty %}

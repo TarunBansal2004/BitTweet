@@ -140,3 +140,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 NPM_BIN_PATH = '/home/epsilon/.nvm/versions/node/v24.1.0/bin/npm'
+
+LOGIN_REDIRECT_URL = '/tweet/timeline'
+LOGOUT_REDIRECT_URL = '/tweet/timeline'
+LOGIN_URL = '/accounts/login/'
