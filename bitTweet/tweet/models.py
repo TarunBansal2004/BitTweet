@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(max_length=280)
-    photo = models.ImageField(upload_to='photo/', blank=True, null=True)
+    photo = models.ImageField(upload_to='tweets/', blank=True, null=True)
     mood = models.CharField(max_length=20, choices=[('Happy', 'Happy'), ('Sad', 'Sad'), ('Nostalgic', 'Nostalgic')])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

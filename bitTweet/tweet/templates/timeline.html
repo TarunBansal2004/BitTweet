@@ -1,31 +1,215 @@
 {% extends "layout.html" %}
 {% block title %}
-HomePage
+BitTweet - Professional Social Platform
 {% endblock %}
 
 {% block navbar %}
 <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">BitTweet</div>
-            <div class="navbar-nav">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search tweets...">
-                    <button class="search-btn">🔍</button>
-                </div>
-                {% comment %} <a href="#" class="nav-btn">Sign In</a> {% endcomment %}
-                <a href="#" class="nav-btn signup">Log Out</a>
+    <div class="navbar-container">
+        <div class="navbar-brand">BitTweet</div>
+        <div class="navbar-nav">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search tweets...">
+                <button class="search-btn">🔍</button>
             </div>
+            <a href="#" class="nav-btn signup">Log Out</a>
         </div>
-    </nav>
-{% endblock %} 
+    </div>
+</nav>
+{% endblock %}
 
 {% block header %}
-    <div class="header">
-        <div class="logo">BitTweet</div>
-        <div class="tagline">Connect to the past, tweet to the future</div>
-    </div>
+<div class="header">
+    <div class="logo">BITTWEET</div>
+    <div class="tagline">CONNECT TO THE PAST , TWEET TO THE FUTURE</div>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="main-container">
+    <div class="profile-section">
+        <div class="section-header">PROFILE</div>
+        <div class="profile-avatar" title="Click to change avatar">👤</div>
+        <div class="profile-info">
+            <div class="profile-username">{{ user.username|upper }}</div>
+            <div class="profile-detail">
+                <strong>About:</strong>
+                <span>{{ user.profile.bio|default:"Full-stack developer & tech enthusiast" }}</span>
+            </div>
+            <div class="profile-detail">
+                <strong>Birthday:</strong>
+                <span>{{ user.profile.birthday|default:"March 15, 1995" }}</span>
+            </div>
+            <div class="profile-detail">
+                <strong>Location:</strong>
+                <span>{{ user.profile.location|default:"Dehra Dun, Uttarakhand" }}</span>
+            </div>
+            <div class="profile-detail">
+                <strong>Tweets:</strong>
+                <span>{{ user.tweets.count }}</span>
+            </div>
+            <div class="profile-detail">
+                <strong>Interests:</strong>
+                <span>{{ user.following.count|default:"Gaming" }}</span>
+            </div>
+            <div class="profile-detail">
+                <strong>Skills:</strong>
+                <span>{{ user.followers.count|default:"Django" }}</span>
+            </div>
+            <button class="edit-profile-btn">EDIT PROFILE</button>
+        </div>
+    </div>
+    <div class="compose-section">
+        <div class="section-header">
+            {% if edit_tweet %}
+                EDIT TWEET
+            {% else %}
+                COMPOSE TWEET
+            {% endif %}
+        </div>
+        <form class="tweet-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea 
+                class="tweet-textarea" 
+                placeholder="What's on your mind?" 
+                maxlength="280"
+                id="tweetText"
+                name="text"
+                required
+            >{% if edit_tweet %}{{ edit_tweet.text }}{% endif %}</textarea>
+            <div class="form-row">
+                <div class="photo-upload">
+                    <input type="file" id="photoUpload" name="photo" accept="image/*">
+                    <label for="photoUpload" class="photo-upload-btn">
+                        📷 ADD PHOTO
+                    </label>
+                </div>
+                <span class="char-counter" id="charCounter">280 characters remaining</span>
+                <button type="submit" class="tweet-submit-btn">
+                    {% if edit_tweet %}
+                        UPDATE
+                    {% else %}
+                        TWEET
+                    {% endif %}
+                </button>
+            </div>
+            {% if edit_tweet %}
+                <div class="edit-actions">
+                    <a href="{% url 'timeline' %}" class="cancel-edit-btn">CANCEL</a>
+                    {% if edit_tweet.photo %}
+                        <div class="current-photo">
+                            <img src="{{ edit_tweet.photo.url }}" alt="Current photo" class="current-photo-preview">
+                            <span>Current photo (upload new to replace)</span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div id="photoPreview"></div>
+        </form>
+     <div>
 
+<div class="tweets-feed">
+    <div class="section-header">RECENT TWEETS</div>
+    {% for tweet in tweets %}
+        <div class="tweet-item">
+            <div class="tweet-header">
+                <div class="tweet-user">{{ tweet.user.username|upper }}</div>
+                {% comment %} <div class="tweet-mood">{{ tweet.get_mood_display }}</div> {% endcomment %}
+                <div class="tweet-time">{{ tweet.created_at|timesince }} ago</div>
+            </div>
+            <div class="tweet-content-area">
+                <div class="tweet-text">{{ tweet.text }}</div>
+                {% if tweet.photo %}
+                    <img src="{{ tweet.photo.url }}" alt="Tweet Photo" class="tweet-photo">
+                {% endif %}
+            </div>
+            <div class="tweet-actions">
+                <a href="{% url 'timeline' %}?edit={{ tweet.id }}"><button class="action-btn edit-btn">EDIT</button></a>
+                <a href="{% url 'tweet_delete' tweet.id %}"><button class="action-btn delete-btn">DELETE</b
+            </div>
+        </div>
+    {% empty %}
+        <div class="tweet-item">
+            <div class="tweet-text">No tweets yet, start tweeting!</div>
+        </div>
+    {% endfor %}
+    
+    {% if bot_response %}
+        <div class="retro-bot">{{ bot_response }}</div>
+    {% endif %}
+</div>
+
+<script>
+    // Character counter functionality
+    const tweetText = document.getElementById('tweetText');
+    const charCounter = document.getElementById('charCounter');
+    
+    tweetText.addEventListener('input', function() {
+        const remaining = 280 - this.value.length;
+        charCounter.textContent = remaining + ' characters remaining';
+        if (remaining < 50) {
+            charCounter.classList.add('warning');
+        } else {
+            charCounter.classList.remove('warning');
+        }
+    });
+
+    // Photo upload functionality
+    const photoUpload = document.getElementById('photoUpload');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoUploadBtn = document.querySelector('.photo-upload-btn');
+
+    photoUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoPreview.innerHTML = `
+                    <img src="${e.target.result}" class="photo-preview" alt="Preview">
+                    <button type="button" class="remove-photo" onclick="removePhoto()">REMOVE</button>
+                `;
+            };
+            reader.readAsDataURL(file);
+            photoUploadBtn.innerHTML = '✓ PHOTO ADDED';
+            photoUploadBtn.style.background = '#51cf66';
+        }
+    });
+
+    // Remove photo function
+    function removePhoto() {
+        photoPreview.innerHTML = '';
+        photoUpload.value = '';
+        photoUploadBtn.innerHTML = '📷 ADD PHOTO';
+        photoUploadBtn.style.background = '#51cf66';
+    }
+
+    // Action button handlers
+    document.querySelectorAll('.action-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.textContent.trim();
+            const tweetId = this.dataset.tweetId;
+            
+            // Add visual feedback
+            this.style.transform = 'translateY(1px)';
+            this.style.boxShadow = '1px 1px 0 #1a3a52';
+            setTimeout(() => {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            }, 100);
+            
+            // Here you can add AJAX calls to handle likes, replies, etc.
+            console.log('Action clicked:', action, 'Tweet ID:', tweetId);
+        });
+    });
+
+    // Profile avatar click handler
+    document.querySelector('.profile-avatar').addEventListener('click', function() {
+        alert('Avatar change functionality would be implemented here!');
+    });
+
+    // Edit profile button
+    document.querySelector('.edit-profile-btn').addEventListener('click', function() {
+        alert('Profile editing functionality would be implemented here!');
+    });
+</script>
 {% endblock %}

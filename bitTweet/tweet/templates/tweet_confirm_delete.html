@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% block title %}
+Delete Tweet - BitTweet
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">BitTweet</div>
+        <div class="navbar-nav">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search tweets...">
+                <button class="search-btn">🔍</button>
+            </div>
+            <a href="#" class="nav-btn signup">Log Out</a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block header %}
+<div class="header">
+    <div class="logo">BITTWEET</div>
+    <div class="tagline">CONNECT TO THE PAST , TWEET TO THE FUTURE</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="compose-section" style="max-width: 600px; margin: 0 auto;">
+        <div class="section-header">DELETE TWEET</div>
+        
+        <div class="delete-confirmation-content">
+            <div class="warning-message">
+                <div class="warning-icon">⚠️</div>
+                <h2 class="warning-title">ARE YOU SURE?</h2>
+                <p class="warning-text">
+                    This action cannot be undone. Your tweet will be permanently deleted from BitTweet.
+                </p>
+            </div>
+            
+            {% if tweet %}
+            <div class="tweet-preview">
+                <div class="preview-label">TWEET TO BE DELETED:</div>
+                <div class="tweet-item">
+                    <div class="tweet-header">
+                        <div class="tweet-user">{{ tweet.user.username|upper }}</div>
+                        <div class="tweet-time">{{ tweet.created_at|timesince }} ago</div>
+                    </div>
+                    <div class="tweet-content-area">
+                        <div class="tweet-text">{{ tweet.text }}</div>
+                        {% if tweet.photo %}
+                            <img src="{{ tweet.photo.url }}" alt="Tweet Photo" class="tweet-photo">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="delete-actions">
+                <form method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-confirm-btn">
+                        🗑️ DELETE FOREVER
+                    </button>
+                </form>
+                <a href="{% url 'timeline' %}" class="cancel-delete-btn">
+                    ← CANCEL
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelector('.delete-confirm-btn').addEventListener('click', function(e) {
+    // Add a slight delay for the visual effect
+    this.style.transform = 'translateY(1px)';
+    this.style.boxShadow = '2px 2px 0 #a71e2a';
+    
+    // Show final confirmation (optional)
+    if (!confirm('Last chance! Are you absolutely sure you want to delete this tweet?')) {
+        e.preventDefault();
+        this.style.transform = '';
+        this.style.boxShadow = '';
+    }
+});
+
+// Add hover effects for better UX
+document.querySelectorAll('.delete-confirm-btn, .cancel-delete-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px)';
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+    });
+});
+</script>
+
+{% endblock %}
+
