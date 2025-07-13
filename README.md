@@ -5,15 +5,12 @@ BitTweet is a Django-based web application inspired by the early days of Twitter
 ## Features
 - **User Authentication**: Secure signup and login to create private tweet timelines.
 - **Tweet Management**: Post tweets (up to 140 characters) with mood tags (Happy, Sad, Nostalgic) accompanied by a retro sound effect.
-- **Timeline View**: Display user tweets in a CRT-style interface, sorted by date (newest first).
-- **Memory Lane**: Filter tweets by mood or date range in a terminal-inspired layout.
-- **Retro Bot**: Provides predefined, nostalgic responses (e.g., "Great tweet!") on post submission.
+- **Timeline View**: Display user tweets in a CRT-style interface.
 - **Design**: Utilizes pixel fonts, a black/green color scheme, and CRT scanline effects for an authentic vintage look.
 
 ## Technical Stack
 - **Backend**: Django framework with a database.
 - **Frontend**: HTML, CSS, and JavaScript for pixelated UI implementation.
-- **Resources**: Google Fonts ("Press Start 2P"), Freesound.org (audio effects).
 
 ## Installation
 1. Clone the repository:
@@ -44,12 +41,7 @@ BitTweet is a Django-based web application inspired by the early days of Twitter
 - `bittweet/`: Main Django project configuration files.
 - `bitTweet/`: Application directory containing models, views, and templates.
 - `templates/bitTweet/`: HTML templates (e.g., `index.html`, `timeline.html`).
-- `static/`: Static assets including CSS, JavaScript, images, and audio files.
-
-## Usage
-- **Homepage**: Initial page with a header and login/signup form.
-- **Main Interface**: Post-login view includes a navigation bar (logout/search), a header, a tweet form (left), a profile section (right), a tweets list, and a "Memory Lane" button below.
-- **Demonstration**: A 3-minute video showcasing signup, tweet posting, and filtering is recommended for presentation.
+- `static/`: Static assets including CSS, JavaScript and images,
 
 ## Contributing
 Contributions are welcome. Please fork the repository and submit pull requests with detailed descriptions of changes. Ensure adherence to the project’s coding standards and retro design guidelines.
