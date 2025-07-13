@@ -2,7 +2,7 @@
 {% block title %}
 HomePage
 {% endblock %}
-{% comment %} 
+
 {% block navbar %}
 <nav class="navbar">
         <div class="navbar-container">
@@ -12,12 +12,12 @@ HomePage
                     <input type="text" class="search-input" placeholder="Search tweets...">
                     <button class="search-btn">🔍</button>
                 </div>
-                <a href="#" class="nav-btn">Sign In</a>
-                <a href="#" class="nav-btn signup">Sign Up</a>
+                {% comment %} <a href="#" class="nav-btn">Sign In</a> {% endcomment %}
+                <a href="#" class="nav-btn signup">Log Out</a>
             </div>
         </div>
     </nav>
-{% endblock %} {% endcomment %}
+{% endblock %} 
 
 {% block header %}
     <div class="header">

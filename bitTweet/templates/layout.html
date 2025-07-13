@@ -15,19 +15,7 @@
     {% tailwind_css %}
 </head>
 <body class="checkered-bg font-silkscreen min-h-screen p-5">
-   <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">BitTweet</div>
-            <div class="navbar-nav">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search tweets...">
-                    <button class="search-btn">🔍</button>
-                </div>
-                <a href="#" class="nav-btn">Sign In</a>
-                <a href="#" class="nav-btn signup">Sign Up</a>
-            </div>
-        </div>
-    </nav>
+   {% block navbar %}{% endblock %}
     {% block header %}{% endblock %}
     <div class="content">
         {% block content %}{% endblock %}
