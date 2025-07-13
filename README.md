@@ -1,6 +1,6 @@
 # BitTweet - A Nostalgic Twitter
 
-BitTweet is a Django-based web application inspired by the early days of Twitter (circa 2006) and the aesthetic of 1980s/1990s computing. Designed to serve as a personal tweet scrapbook, it allows users to post short messages with mood tags, view them in a retro-styled timeline, and filter them using a memory lane feature. The project highlights Django backend development and pixelated frontend design, offering a unique nostalgic experience.
+BitTweet is a Django-based web application inspired by the early days of Twitter (circa 2006) and the aesthetic of 1980s/1990s computing. Designed to serve as a personal tweet scrapbook, it allows users to post short messages and view them in a retro-styled timeline. The project highlights Django backend development and pixelated frontend design, offering a unique nostalgic experience.
 
 ## Features
 - **User Authentication**: Secure signup and login to create private tweet timelines.
