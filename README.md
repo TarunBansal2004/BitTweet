@@ -51,6 +51,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 - Inspired by the simplicity of early Twitter and the visual style of 1980s/1990s computers.
-- Audio assets sourced from Freesound.org.
 - Developed with dedication as of 11:41 AM IST on Sunday, July 13, 2025.
 
