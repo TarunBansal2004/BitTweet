@@ -4,9 +4,9 @@ BitTweet is a Django-based web application inspired by the early days of Twitter
 
 ## Features
 - **User Authentication**: Secure signup and login to create private tweet timelines.
-- **Tweet Management**: Post tweets (up to 140 characters) with mood tags (Happy, Sad, Nostalgic) accompanied by a retro sound effect.
-- **Timeline View**: Display user tweets in a CRT-style interface.
-- **Design**: Utilizes pixel fonts, a black/green color scheme, and CRT scanline effects for an authentic vintage look.
+- **Tweet Management**: Post tweets (up to 140 characters) 
+- **Timeline View**: Display user tweets in a pixelated interface.
+- **Design**: Utilizes pixel fonts, a blue/white color scheme, and an authentic vintage look.
 
 ## Technical Stack
 - **Backend**: Django framework with a database.
